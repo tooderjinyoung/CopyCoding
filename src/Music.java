@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URISyntaxException;
 
 public class Music extends Thread {
     private Player player;
@@ -17,7 +18,11 @@ public class Music extends Thread {
     public Music(String name, boolean isLoop) {
         try {
             this.isLoop = isLoop;
-            file = new File(Main.class.getResource(Musicpath + name).toURI());
+
+            try{
+                file = new File(Main.class.getResource(Musicpath + name).toURI());
+            }
+            catch(URISyntaxException ex){ex.printStackTrace();}
             fis = new FileInputStream(file);
             bis = new BufferedInputStream(fis);
             player = new Player(bis);
