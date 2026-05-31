@@ -12,12 +12,12 @@ public class Music extends Thread {
     private FileInputStream fis;
     private BufferedInputStream bis;
 
-    private String path = "/Music/";
+    private String Musicpath = "/Music/";
 
     public Music(String name, boolean isLoop) {
         try {
             this.isLoop = isLoop;
-            file = new File(Main.class.getResource(path + name).toURI());
+            file = new File(Main.class.getResource(Musicpath + name).toURI());
             fis = new FileInputStream(file);
             bis = new BufferedInputStream(fis);
             player = new Player(bis);
@@ -27,7 +27,6 @@ public class Music extends Thread {
     }
 
     public int getTime(){
-        // ✨ 유일하게 수정된 부분: != 가 아니라 == 로 변경했습니다.
         if (player == null) { return 0;}
         return player.getPosition();
     }
