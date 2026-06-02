@@ -10,13 +10,11 @@ public class DynamicBeat extends JFrame {
 
 
     private Image BackGround = new ImageIcon(Main.class.getResource(imagesPath + "introbackGround.jpg")).getImage();
+
+    private Image selectedImage =new ImageIcon(Main.class.getResource(imagesPath + "jjez.jpg")).getImage();
+
     private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource(imagesPath + "bar.png")));
-
     private  JButton exitButton = new JButton("EXIT");
-
-
-
-
 
     private ImageIcon startButtonBasic = new ImageIcon(Main.class.getResource(imagesPath + "start.png"));
     private ImageIcon startButtonEntered = new ImageIcon(Main.class.getResource(imagesPath + "start_2.png"));
@@ -28,6 +26,9 @@ public class DynamicBeat extends JFrame {
 
     private int mouseX;
     private int mouseY;
+
+    private boolean isMainScreen = false;
+
 
     // 생성자 생성
     public DynamicBeat() {
@@ -131,8 +132,7 @@ public class DynamicBeat extends JFrame {
                 startButton.setVisible(false);
                 quitButton.setVisible(false);
                 BackGround = new ImageIcon(Main.class.getResource(imagesPath + "mainbackGrond.png.")).getImage();
-
-
+                isMainScreen = true;
             }
         });
         add(startButton);
@@ -179,7 +179,13 @@ public class DynamicBeat extends JFrame {
     // 계속 프린트해주는 함수
     public void screenDraw(Graphics g) {
         g.drawImage(BackGround, 0, 0, null);
-        paintComponents(g); //
+        if(isMainScreen)
+        {
+            g.drawImage(selectedImage, 338,100, null);
+        }
+
+
+        paintComponents(g);
         this.repaint();
     }
 }
