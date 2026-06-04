@@ -27,10 +27,17 @@ public class DynamicBeat extends JFrame {
     private ImageIcon rightButtonBasic = new ImageIcon(Main.class.getResource(imagesPath + "right.png"));
     private ImageIcon rightButtonEntered = new ImageIcon(Main.class.getResource(imagesPath + "right_2.png"));
 
+    private ImageIcon easyButtonBasic = new ImageIcon(Main.class.getResource(imagesPath + "easy.png"));
+    private ImageIcon easyButtonEntered = new ImageIcon(Main.class.getResource(imagesPath + "easy_2.png"));
+    private ImageIcon hardButtonBasic = new ImageIcon(Main.class.getResource(imagesPath + "hard.png"));
+    private ImageIcon hardButtonEntered = new ImageIcon(Main.class.getResource(imagesPath + "hard_2.png"));
+
     private JButton startButton = new JButton(startButtonBasic);
     private JButton quitButton = new JButton(quitButtonBasic);
     private JButton leftButton = new JButton(leftButtonBasic);
     private JButton rightButton = new JButton(rightButtonBasic);
+    private JButton easyButton = new JButton(easyButtonBasic);
+    private JButton hardButton = new JButton(hardButtonBasic);
 
 
     private JButton exitButton = new JButton("EXIT");
@@ -49,9 +56,9 @@ public class DynamicBeat extends JFrame {
     // 생성자 생성
     public DynamicBeat() {
         setUndecorated(true);
-        tracksList.add(new Track("moodmode.mp3", "jjez.jpg", "jjez.jpg"));
-        tracksList.add(new Track("NoCopyright.mp3", "fruit.jpg", "fruit.jpg"));
-        tracksList.add(new Track("prettyjohn1.mp3", "flower.jpg", "flower.jpg"));
+        tracksList.add(new Track("moodmode.mp3", "jjez.jpg", "fulljjez.png"));
+        tracksList.add(new Track("NoCopyright.mp3", "fruit.jpg", "fullfruit.jpg"));
+        tracksList.add(new Track("prettyjohn1.mp3", "flower.jpg", "fullflower.jpg"));
         Music introMusic = new Music("introMusic.mp3", true);
         introMusic.start();
         setTitle("DynamicBeat");
@@ -238,6 +245,82 @@ public class DynamicBeat extends JFrame {
         });
         add(rightButton);
 
+        // 이지 버튼
+        easyButton.setVisible(false);
+        easyButton.setBounds(300,500, 300, 160);
+        easyButton.setBorderPainted(false);
+        easyButton.setContentAreaFilled(false);
+        easyButton.setFocusPainted(false);
+        easyButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+                easyButton.setIcon(easyButtonEntered);
+                easyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                Music mouseClick = new Music("MouseClick.mp3", false);
+                mouseClick.start();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                easyButton.setIcon(easyButtonBasic);
+                easyButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Music mouseClick = new Music("MouseClick.mp3", false);
+                mouseClick.start();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                // 이지버튼 구현
+                gameStart(nowSelected,"easy");
+            }
+        });
+        add(easyButton);
+
+        // 하드 버튼
+        //
+        hardButton.setVisible(false);
+        hardButton.setBounds(Main.SCREEN_WIDTH-580,500, 300, 160);
+        hardButton.setBorderPainted(false);
+        hardButton.setContentAreaFilled(false);
+        hardButton.setFocusPainted(false);
+        hardButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+                hardButton.setIcon(hardButtonEntered);
+                hardButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                Music mouseClick = new Music("MouseClick.mp3", false);
+                mouseClick.start();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                hardButton.setIcon(hardButtonBasic);
+                hardButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Music mouseClick = new Music("MouseClick.mp3", false);
+                mouseClick.start();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                // 하드버튼 구현
+                gameStart(nowSelected,"hard");
+
+            }
+        });
+        add(hardButton);
+
         // 메뉴바 움직이는법
         menuBar.setBounds(0, 0, Main.SCREEN_WIDTH, 30);
         menuBar.addMouseListener(new MouseAdapter() {
@@ -277,7 +360,10 @@ public class DynamicBeat extends JFrame {
             g.drawImage(selectedImage, 338, 100, null);
             leftButton.setVisible(true);
             rightButton.setVisible(true);
+            easyButton.setVisible(true);
+            hardButton.setVisible(true);
         }
+
 
 
         paintComponents(g);
@@ -313,6 +399,23 @@ public class DynamicBeat extends JFrame {
         }
         selectTrack(nowSelected);
     }
+
+    public void gameStart(int nowSelected,String difficulty)
+    {
+        if(selectedMusic != null)
+        {
+            selectedMusic.close();
+        }
+        isMainScreen = false;
+
+        leftButton.setVisible(false);
+        rightButton.setVisible(false);
+        easyButton.setVisible(false);
+        hardButton.setVisible(false);
+
+        BackGround = new ImageIcon(Main.class.getResource(imagesPath + tracksList.get(nowSelected).getStartImage())).getImage();
+    }
+
 
 
 }
