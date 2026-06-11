@@ -35,6 +35,11 @@ public class DynamicBeat extends JFrame {
     private ImageIcon backButtonBasic = new ImageIcon(Main.class.getResource(imagesPath + "back.png"));
     private ImageIcon backButtonEntered = new ImageIcon(Main.class.getResource(imagesPath + "back_2.png"));
 
+    private Image gameInfo = new ImageIcon(Main.class.getResource(imagesPath + "gameinfo.png")).getImage();
+    private Image notebasicImage = new ImageIcon(Main.class.getResource(imagesPath + "notebasic.png")).getImage();
+    private Image judgmentLineImage = new ImageIcon(Main.class.getResource(imagesPath + "redbar.png")).getImage();
+    private Image notRouteImage = new ImageIcon(Main.class.getResource(imagesPath + "blackbar.png")).getImage();
+    private Image notRouteLineImage = new ImageIcon(Main.class.getResource(imagesPath + "hbar.png")).getImage();
     private JButton startButton = new JButton(startButtonBasic);
     private JButton quitButton = new JButton(quitButtonBasic);
     private JButton leftButton = new JButton(leftButtonBasic);
@@ -50,6 +55,7 @@ public class DynamicBeat extends JFrame {
     private int mouseY;
 
     private boolean isMainScreen = false;
+    private boolean isGameScreen =false;
 
     ArrayList<Track> tracksList = new ArrayList<>();
     private Music selectedMusic;
@@ -395,6 +401,55 @@ public class DynamicBeat extends JFrame {
 
             g.drawImage(selectedImage, 338, 100, null);
         }
+        else if (isGameScreen)
+        {
+
+
+
+            g.drawImage(notRouteImage, 228 ,30, null);
+            g.drawImage(notRouteImage, 332 ,30, null);
+            g.drawImage(notRouteImage, 436 ,30, null);
+            g.drawImage(notRouteImage, 540 ,30, null);
+            g.drawImage(notRouteImage, 640 ,30, null);
+            g.drawImage(notRouteImage, 744 ,30, null);
+            g.drawImage(notRouteImage, 848 ,30, null);
+            g.drawImage(notRouteImage, 952 ,30, null);
+            g.drawImage(notRouteLineImage, 224 ,30, null);
+            g.drawImage(notRouteLineImage, 328 ,30, null);
+            g.drawImage(notRouteLineImage, 432 ,30, null);
+            g.drawImage(notRouteLineImage, 536 ,30, null);
+            g.drawImage(notRouteLineImage, 740 ,30, null);
+            g.drawImage(notRouteLineImage, 844 ,30, null);
+            g.drawImage(notRouteLineImage, 948 ,30, null);
+            g.drawImage(notRouteLineImage, 1052 ,30, null);
+
+            g.drawImage(notebasicImage, 228 ,120, null);
+            g.drawImage(notebasicImage, 332 ,500, null);
+            g.drawImage(notebasicImage, 436 ,500, null);
+            g.drawImage(notebasicImage, 540 ,340, null);
+            g.drawImage(notebasicImage, 640 ,340, null);
+            g.drawImage(notebasicImage, 744 ,305, null);
+            g.drawImage(notebasicImage, 848 ,305, null);
+            g.drawImage(notebasicImage, 952 ,300, null);
+            g.drawImage(gameInfo, 0 ,600, null);
+            g.drawImage(judgmentLineImage, 0 ,500, null);
+
+            g.setFont(new Font("Arial", Font.BOLD, 30));
+            g.setColor(Color.yellow);
+            g.drawString("S",270,609);
+            g.drawString("D",374,609);
+            g.drawString("F",478,609);
+            g.drawString("Space Bar",580,609);
+            g.drawString("J",784,609);
+            g.drawString("J",889,609);
+            g.drawString("L",993,609);
+
+            g.setColor(Color.LIGHT_GRAY);
+            g.drawString("easy", 1190, 710);
+            g.drawString("00000",562,702);
+
+
+        }
         paintComponents(g);
         this.repaint();
     }
@@ -440,6 +495,8 @@ public class DynamicBeat extends JFrame {
         backButton.setVisible(true);
 
         BackGround = new ImageIcon(Main.class.getResource(imagesPath + tracksList.get(nowSelected).getStartImage())).getImage();
+        isGameScreen = true;
+
     }
 
     public void backMain()
@@ -452,6 +509,7 @@ public class DynamicBeat extends JFrame {
         BackGround = new ImageIcon(Main.class.getResource(imagesPath + "mainbackGrond.png.")).getImage();
         backButton.setVisible(false);
         selectTrack(nowSelected);
+        isGameScreen = false;
     }
 
     public void enterMain()
