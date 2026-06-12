@@ -6,11 +6,15 @@ public class Track {
     private String startImage;
 
 
-    public Track(String gameMusic, String tileIamge, String startImage) {
+    private String titleName;
+
+
+    public Track(String gameMusic, String tileIamge, String startImage, String titleName) {
 
         this.gameMusic = gameMusic;
         this.tileIamge = tileIamge;
         this.startImage = startImage;
+        this.titleName = titleName;
 
     }
 
@@ -33,7 +37,12 @@ public class Track {
     public void setGameMusic(String gameMusic) {
         this.gameMusic = gameMusic;
     }
-
+    public String getTitleName() {
+        return titleName;
+    }
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
+    }
 
 
 

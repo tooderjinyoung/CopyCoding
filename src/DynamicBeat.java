@@ -60,14 +60,14 @@ public class DynamicBeat extends JFrame {
 
     Music introMusic = new Music("introMusic.mp3", true);
 
-    public static Game game = new Game();
+    public static Game game;
 
     // 생성자 생성
     public DynamicBeat() {
         setUndecorated(true);
-        tracksList.add(new Track("moodmode.mp3", "jjez.jpg", "fulljjez.png"));
-        tracksList.add(new Track("NoCopyright.mp3", "fruit.jpg", "fullfruit.jpg"));
-        tracksList.add(new Track("prettyjohn1.mp3", "flower.jpg", "fullflower.jpg"));
+        tracksList.add(new Track("moodmode.mp3", "jjez.jpg", "fulljjez.png","moodmode"));
+        tracksList.add(new Track("NoCopyright.mp3", "fruit.jpg", "fullfruit.jpg","NoCopyright"));
+        tracksList.add(new Track("prettyjohn1.mp3", "flower.jpg", "fullflower.jpg","prettyjohn1"));
         addKeyListener(new KeyListner());
         introMusic.start();
         setTitle("DynamicBeat");
@@ -457,6 +457,7 @@ public class DynamicBeat extends JFrame {
 
         BackGround = new ImageIcon(Main.class.getResource(Main.imagesPath + tracksList.get(nowSelected).getStartImage())).getImage();
         isGameScreen = true;
+        game = new Game(tracksList.get(nowSelected).getTitleName(), difficulty,tracksList.get(nowSelected).getGameMusic());
 
     }
 
@@ -471,6 +472,7 @@ public class DynamicBeat extends JFrame {
         backButton.setVisible(false);
         selectTrack(nowSelected);
         isGameScreen = false;
+        game.close();
     }
 
     public void enterMain()
